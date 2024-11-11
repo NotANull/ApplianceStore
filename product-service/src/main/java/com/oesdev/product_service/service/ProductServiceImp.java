@@ -3,6 +3,7 @@ package com.oesdev.product_service.service;
 import com.oesdev.product_service.dto.request.ProductRequestDto;
 import com.oesdev.product_service.dto.response.ProductResponseDto;
 import com.oesdev.product_service.entity.Product;
+import com.oesdev.product_service.mapper.ProductMapper;
 import com.oesdev.product_service.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,10 @@ import java.util.Optional;
 public class ProductServiceImp implements IProductService{
 
     private IProductRepository productRepository;
-
-    public ProductServiceImp(IProductRepository productRepository) {
+    private ProductMapper mapper;
+    public ProductServiceImp(IProductRepository productRepository, ProductMapper mapper) {
         this.productRepository = productRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -77,20 +79,7 @@ public class ProductServiceImp implements IProductService{
             return "Code not found";
         }
 
-        Field[] fields = productRequestDto.getClass().getDeclaredFields();
-        for(Field field : fields) {
-            field.setAccessible(true);
-            try {
-                Object value = field.get(productRequestDto);
-                if(value != null) {
-                    Field productField = Product.class.getDeclaredField(field.getName());
-                    productField.setAccessible(true);
-                    productField.set(productEntity, value);
-                }
-            } catch (IllegalAccessException | NoSuchFieldException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        mapper.updateProductFromDto(productRequestDto, productEntity);
 
         this.productRepository.save(productEntity);
 
