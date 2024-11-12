@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IProductService {
 
-    ProductResponseDto createProduct(ProductRequestDto productRequestDto);
+    String createProduct(ProductRequestDto productRequestDto);
 
     ProductResponseDto getProduct(Long productCode);
 

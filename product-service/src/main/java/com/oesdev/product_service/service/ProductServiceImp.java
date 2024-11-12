@@ -19,18 +19,16 @@ public class ProductServiceImp implements IProductService{
     }
 
     @Override
-    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
+    public String createProduct(ProductRequestDto productRequestDto) {
 
         Product productEntity = ProductMapper.mapper.toEntity(productRequestDto);
 
         this.productRepository.save(productEntity);
 
-        return new ProductResponseDto(
-                "Product saved",
-                productRequestDto.getName(),
-                productRequestDto.getBrand(),
-                productRequestDto.getPrice()
-        );
+        return "Product Created" +
+                "\nName: " + productRequestDto.getName() +
+                "\nBrand: " + productRequestDto.getBrand() +
+                "\nPrice: " + productRequestDto.getPrice();
     }
 
     @Override
@@ -48,14 +46,8 @@ public class ProductServiceImp implements IProductService{
     @Override
     public List<ProductResponseDto> getProducts() {
         return this.productRepository.findAll().stream()
-                .map(p -> ProductResponseDto.builder()
-                        .message("-")
-                        .name(p.getName())
-                        .brand(p.getBrand())
-                        .price(p.getPrice())
-                        .build())
+                .map(p -> ProductMapper.mapper.toResponseDto(p))
                 .toList();
-
     }
 
     @Override
@@ -67,7 +59,7 @@ public class ProductServiceImp implements IProductService{
             return "Code not found";
         }
 
-        //mapper.updateProductFromDto(productRequestDto, productEntity);
+        ProductMapper.mapper.updateProductFromDto(productRequestDto, productEntity);
 
         this.productRepository.save(productEntity);
 
