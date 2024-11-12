@@ -7,7 +7,6 @@ import com.oesdev.product_service.mapper.ProductMapper;
 import com.oesdev.product_service.repository.IProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,20 +14,14 @@ import java.util.Optional;
 public class ProductServiceImp implements IProductService{
 
     private IProductRepository productRepository;
-    private ProductMapper mapper;
-    public ProductServiceImp(IProductRepository productRepository, ProductMapper mapper) {
+    public ProductServiceImp(IProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.mapper = mapper;
     }
 
     @Override
     public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
 
-        Product productEntity = Product.builder()
-                .name(productRequestDto.getName())
-                .brand(productRequestDto.getBrand())
-                .price(productRequestDto.getPrice())
-                .build();
+        Product productEntity = ProductMapper.mapper.toEntity(productRequestDto);
 
         this.productRepository.save(productEntity);
 
@@ -49,12 +42,7 @@ public class ProductServiceImp implements IProductService{
             return null;
         }
 
-        return ProductResponseDto.builder()
-                .message("Product Information")
-                .name(productEntity.getName())
-                .brand(productEntity.getBrand())
-                .price(productEntity.getPrice())
-                .build();
+        return ProductMapper.mapper.toResponseDto(productEntity);
     }
 
     @Override
@@ -79,7 +67,7 @@ public class ProductServiceImp implements IProductService{
             return "Code not found";
         }
 
-        mapper.updateProductFromDto(productRequestDto, productEntity);
+        //mapper.updateProductFromDto(productRequestDto, productEntity);
 
         this.productRepository.save(productEntity);
 
