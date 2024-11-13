@@ -1,7 +1,6 @@
 package com.oesdev.product_service.service;
 
-import com.oesdev.product_service.dto.request.ProductRequestDto;
-import com.oesdev.product_service.dto.response.ProductResponseDto;
+import com.oesdev.product_service.dto.ProductDto;
 import com.oesdev.product_service.entity.Product;
 import com.oesdev.product_service.mapper.ProductMapper;
 import com.oesdev.product_service.repository.IProductRepository;
@@ -19,20 +18,20 @@ public class ProductServiceImp implements IProductService{
     }
 
     @Override
-    public String createProduct(ProductRequestDto productRequestDto) {
+    public String createProduct(ProductDto productDto) {
 
-        Product productEntity = ProductMapper.mapper.toEntity(productRequestDto);
+        Product productEntity = ProductMapper.mapper.toEntity(productDto);
 
         this.productRepository.save(productEntity);
 
         return "Product Created" +
-                "\nName: " + productRequestDto.getName() +
-                "\nBrand: " + productRequestDto.getBrand() +
-                "\nPrice: " + productRequestDto.getPrice();
+                "\nName: " + productDto.getName() +
+                "\nBrand: " + productDto.getBrand() +
+                "\nPrice: " + productDto.getPrice();
     }
 
     @Override
-    public ProductResponseDto getProduct(Long productCode) {
+    public ProductDto getProduct(Long productCode) {
 
         Product productEntity = this.productRepository.findById(productCode).orElse(null);
 
@@ -44,14 +43,14 @@ public class ProductServiceImp implements IProductService{
     }
 
     @Override
-    public List<ProductResponseDto> getProducts() {
+    public List<ProductDto> getProducts() {
         return this.productRepository.findAll().stream()
                 .map(p -> ProductMapper.mapper.toResponseDto(p))
                 .toList();
     }
 
     @Override
-    public String updateProduct(ProductRequestDto productRequestDto, Long productCode) {
+    public String updateProduct(ProductDto productDto, Long productCode) {
 
         Product productEntity = this.productRepository.findById(productCode).orElse(null);
 
@@ -59,7 +58,7 @@ public class ProductServiceImp implements IProductService{
             return "Code not found";
         }
 
-        ProductMapper.mapper.updateProductFromDto(productRequestDto, productEntity);
+        ProductMapper.mapper.updateProductFromDto(productDto, productEntity);
 
         this.productRepository.save(productEntity);
 

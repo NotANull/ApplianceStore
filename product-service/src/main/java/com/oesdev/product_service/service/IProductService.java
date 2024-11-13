@@ -1,19 +1,18 @@
 package com.oesdev.product_service.service;
 
-import com.oesdev.product_service.dto.request.ProductRequestDto;
-import com.oesdev.product_service.dto.response.ProductResponseDto;
+import com.oesdev.product_service.dto.ProductDto;
 
 import java.util.List;
 
 public interface IProductService {
 
-    String createProduct(ProductRequestDto productRequestDto);
+    String createProduct(ProductDto productRequestDto);
 
-    ProductResponseDto getProduct(Long productCode);
+    ProductDto getProduct(Long productCode);
 
-    List<ProductResponseDto> getProducts();
+    List<ProductDto> getProducts();
 
-    String updateProduct(ProductRequestDto productRequestDto, Long productCode);
+    String updateProduct(ProductDto productRequestDto, Long productCode);
 
     String deleteProduct(Long productCode);
 }

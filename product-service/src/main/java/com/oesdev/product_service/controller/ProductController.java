@@ -1,7 +1,6 @@
 package com.oesdev.product_service.controller;
 
-import com.oesdev.product_service.dto.request.ProductRequestDto;
-import com.oesdev.product_service.dto.response.ProductResponseDto;
+import com.oesdev.product_service.dto.ProductDto;
 import com.oesdev.product_service.service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,23 +19,23 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createProduct(@RequestBody ProductRequestDto productRequestDto) {
-        return new ResponseEntity<>(this.productService.createProduct(productRequestDto), HttpStatus.OK);
+    public ResponseEntity<String> createProduct(@RequestBody ProductDto productDto) {
+        return new ResponseEntity<>(this.productService.createProduct(productDto), HttpStatus.OK);
     }
 
     @GetMapping("/read/{code}")
-    public ResponseEntity<ProductResponseDto> getProduct(@PathVariable Long code) {
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long code) {
         return new ResponseEntity<>(this.productService.getProduct(code), HttpStatus.OK);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProductResponseDto>> getProducts() {
+    public ResponseEntity<List<ProductDto>> getProducts() {
         return new ResponseEntity<>(this.productService.getProducts(), HttpStatus.OK);
     }
 
     @PutMapping("/update/{code}")
-    public ResponseEntity<String> updateProduct(@RequestBody ProductRequestDto productRequestDto, @PathVariable Long code){
-        return new ResponseEntity<>(this.productService.updateProduct(productRequestDto, code), HttpStatus.OK);
+    public ResponseEntity<String> updateProduct(@RequestBody ProductDto productDto, @PathVariable Long code){
+        return new ResponseEntity<>(this.productService.updateProduct(productDto, code), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{code}")

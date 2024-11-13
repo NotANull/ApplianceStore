@@ -20,6 +20,5 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double totalPrice;
-    @ElementCollection
     private List<ProductResponseDto> listProducts;
 }

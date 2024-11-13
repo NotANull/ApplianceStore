@@ -1,5 +1,6 @@
 package com.oesdev.product_service.mapper;
 
+import com.oesdev.product_service.dto.ProductDto;
 import com.oesdev.product_service.dto.request.ProductRequestDto;
 import com.oesdev.product_service.dto.response.ProductResponseDto;
 import com.oesdev.product_service.entity.Product;
@@ -14,10 +15,10 @@ public interface ProductMapper {
 
     ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
 
-    ProductResponseDto toResponseDto(Product product);
+    ProductDto toResponseDto(Product product);
 
-    Product toEntity(ProductRequestDto productRequestDto);
+    Product toEntity(ProductDto productRequestDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateProductFromDto(ProductRequestDto productRequestDto, @MappingTarget Product product);
+    void updateProductFromDto(ProductDto productRequestDto, @MappingTarget Product product);
 }
