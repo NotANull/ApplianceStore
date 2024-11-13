@@ -1,6 +1,6 @@
 package com.oesdev.shoppingCart_service.service;
 
-import com.oesdev.shoppingCart_service.dto.response.ShoppingCartResponseDto;
+import com.oesdev.shoppingCart_service.dto.ShoppingCartDto;
 import com.oesdev.shoppingCart_service.entity.ShoppingCart;
 import com.oesdev.shoppingCart_service.repository.IProductAPI;
 import com.oesdev.shoppingCart_service.repository.IShoppingCartRepository;
@@ -24,7 +24,7 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     }
 
     @Override
-    public ShoppingCartResponseDto getShoppingCart(Long id) {
+    public ShoppingCartDto getShoppingCart(Long id) {
         return null;
     }
 }

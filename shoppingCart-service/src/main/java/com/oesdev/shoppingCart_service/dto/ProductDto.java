@@ -1,4 +1,4 @@
-package com.oesdev.shoppingCart_service.dto.response;
+package com.oesdev.shoppingCart_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ProductResponseDto {
+public class ProductDto {
 
     private Long code;
     private String name;

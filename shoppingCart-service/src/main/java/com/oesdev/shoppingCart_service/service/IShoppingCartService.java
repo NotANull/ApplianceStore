@@ -1,10 +1,10 @@
 package com.oesdev.shoppingCart_service.service;
 
-import com.oesdev.shoppingCart_service.dto.response.ShoppingCartResponseDto;
+import com.oesdev.shoppingCart_service.dto.ShoppingCartDto;
 
 public interface IShoppingCartService {
 
     String createShoppingCart();
 
-    ShoppingCartResponseDto getShoppingCart(Long id);
+    ShoppingCartDto getShoppingCart(Long id);
 }

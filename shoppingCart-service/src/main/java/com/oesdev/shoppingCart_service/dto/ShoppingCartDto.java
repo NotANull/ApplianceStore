@@ -1,4 +1,4 @@
-package com.oesdev.shoppingCart_service.dto.response;
+package com.oesdev.shoppingCart_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class ShoppingCartResponseDto {
+public class ShoppingCartDto {
 
     private Double totalPrice;
-    private List<ProductResponseDto> listProducts;
+    private List<ProductDto> listProducts;
 }
