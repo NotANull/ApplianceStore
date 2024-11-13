@@ -1,8 +1,6 @@
 package com.oesdev.product_service.mapper;
 
 import com.oesdev.product_service.dto.ProductDto;
-import com.oesdev.product_service.dto.request.ProductRequestDto;
-import com.oesdev.product_service.dto.response.ProductResponseDto;
 import com.oesdev.product_service.entity.Product;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
