@@ -29,11 +29,17 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     @Override
     public String addProductToCart(Long id, Long productCode) {
 
+        //Dejar preparado el manejo de las excepciones
+        //utilizar multi-catch o '|' en uno solo
         ProductDto productDto = this.productAPI.getProductByCode(productCode);
+        ShoppingCart shoppingCartEntity = this.shoppingCartRepository.findById(id).get();
+
+        if(productCode != null) {
+            return "Code not found";
+        }
 
         Product productEntity = IShoppingCartMapper.mapper.toEntity(productDto);
 
-        ShoppingCart shoppingCartEntity = this.shoppingCartRepository.findById(id).get();
 
         shoppingCartEntity.getListProducts().add(productEntity);
         shoppingCartEntity.setTotalPrice(shoppingCartEntity.getTotalPrice() + productEntity.getPrice());
