@@ -6,5 +6,7 @@ public interface IShoppingCartService {
 
     String createShoppingCart();
 
+    String addProductToCart(Long id, Long productCode);
+
     ShoppingCartDto getShoppingCart(Long id);
 }

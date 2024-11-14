@@ -13,6 +13,6 @@ import java.util.List;
 @Builder
 public class ShoppingCartDto {
 
-    private Double totalPrice;
+    private double totalPrice;
     private List<ProductDto> listProducts;
 }
