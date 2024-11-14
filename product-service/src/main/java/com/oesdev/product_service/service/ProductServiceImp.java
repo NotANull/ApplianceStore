@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class ProductServiceImp implements IProductService{
 
-    private IProductRepository productRepository;
+    private final IProductRepository productRepository;
     public ProductServiceImp(IProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -33,11 +33,9 @@ public class ProductServiceImp implements IProductService{
     @Override
     public ProductDto getProduct(Long productCode) {
 
-        Product productEntity = this.productRepository.findById(productCode).orElse(null);
-
-        if (productEntity == null) {
-            return null;
-        }
+        //implement custom exceptions
+        Product productEntity = this.productRepository.findById(productCode)
+                .orElseThrow(() -> new RuntimeException("Product with " + productCode + " not found"));
 
         return ProductMapper.mapper.toResponseDto(productEntity);
     }
@@ -52,11 +50,8 @@ public class ProductServiceImp implements IProductService{
     @Override
     public String updateProduct(ProductDto productDto, Long productCode) {
 
-        Product productEntity = this.productRepository.findById(productCode).orElse(null);
-
-        if (productEntity == null) {
-            return "Code not found";
-        }
+        Product productEntity = this.productRepository.findById(productCode)
+                .orElseThrow(() -> new RuntimeException("Product with " + productCode + " not found"));
 
         ProductMapper.mapper.updateProductFromDto(productDto, productEntity);
 

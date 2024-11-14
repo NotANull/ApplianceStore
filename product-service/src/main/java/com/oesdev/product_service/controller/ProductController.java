@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/product")
 public class ProductController {
 
     private IProductService productService;
@@ -28,7 +28,7 @@ public class ProductController {
         return new ResponseEntity<>(this.productService.getProduct(code), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/read/list")
     public ResponseEntity<List<ProductDto>> getProducts() {
         return new ResponseEntity<>(this.productService.getProducts(), HttpStatus.OK);
     }
