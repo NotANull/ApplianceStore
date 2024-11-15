@@ -9,4 +9,6 @@ public interface IShoppingCartService {
     String addProductToCart(Long id, Long productCode);
 
     ShoppingCartDto getShoppingCart(Long id);
+
+    ShoppingCartDto getShoppingCarts();
 }
