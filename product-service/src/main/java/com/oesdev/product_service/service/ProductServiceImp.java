@@ -2,6 +2,7 @@ package com.oesdev.product_service.service;
 
 import com.oesdev.product_service.dto.ProductDto;
 import com.oesdev.product_service.entity.Product;
+import com.oesdev.product_service.exception.ProductNotFoundException;
 import com.oesdev.product_service.mapper.ProductMapper;
 import com.oesdev.product_service.repository.IProductRepository;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,8 @@ public class ProductServiceImp implements IProductService{
     @Override
     public ProductDto getProduct(Long productCode) {
 
-        //implement custom exceptions
         Product productEntity = this.productRepository.findById(productCode)
-                .orElseThrow(() -> new RuntimeException("Product with " + productCode + " not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product with " + productCode + " not found"));
 
         return ProductMapper.mapper.toResponseDto(productEntity);
     }
@@ -51,7 +51,7 @@ public class ProductServiceImp implements IProductService{
     public String updateProduct(ProductDto productDto, Long productCode) {
 
         Product productEntity = this.productRepository.findById(productCode)
-                .orElseThrow(() -> new RuntimeException("Product with " + productCode + " not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product with " + productCode + " not found"));
 
         ProductMapper.mapper.updateProductFromDto(productDto, productEntity);
 
