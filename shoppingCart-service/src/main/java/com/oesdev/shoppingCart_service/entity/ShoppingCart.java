@@ -1,6 +1,5 @@
 package com.oesdev.shoppingCart_service.entity;
 
-import com.oesdev.shoppingCart_service.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,7 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double totalPrice;
+    private Double totalPrice;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> listProducts;
 }

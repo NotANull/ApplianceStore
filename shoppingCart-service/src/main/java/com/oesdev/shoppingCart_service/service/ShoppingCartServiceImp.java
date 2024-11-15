@@ -5,6 +5,7 @@ import com.oesdev.shoppingCart_service.dto.ShoppingCartDto;
 import com.oesdev.shoppingCart_service.entity.Product;
 import com.oesdev.shoppingCart_service.entity.ShoppingCart;
 import com.oesdev.shoppingCart_service.exception.ProductNotFoundException;
+import com.oesdev.shoppingCart_service.exception.ShoppingCartNotFoundException;
 import com.oesdev.shoppingCart_service.mapper.IShoppingCartMapper;
 import com.oesdev.shoppingCart_service.repository.IProductAPI;
 import com.oesdev.shoppingCart_service.repository.IShoppingCartRepository;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShoppingCartServiceImp implements IShoppingCartService{
 
-    private IProductAPI productAPI;
-    private IShoppingCartRepository shoppingCartRepository;
+    private final IProductAPI productAPI;
+    private final IShoppingCartRepository shoppingCartRepository;
 
     public ShoppingCartServiceImp(IProductAPI productAPI, IShoppingCartRepository shoppingCartRepository) {
         this.productAPI = productAPI;
@@ -31,10 +32,8 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     @Override
     public String addProductToCart(Long id, Long productCode) {
 
-        //Dejar preparado el manejo de las excepciones
-        //utilizar multi-catch o '|' en uno solo
         ShoppingCart shoppingCartEntity = this.shoppingCartRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Shopping cart with " + id + " not found"));
+                .orElseThrow(() -> new ShoppingCartNotFoundException("Shopping cart with " + id + " not found"));
 
         try {
             ProductDto productDto = this.productAPI.getProductByCode(productCode);
@@ -52,7 +51,11 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
 
     @Override
     public ShoppingCartDto getShoppingCart(Long id) {
-        return null;
+
+        ShoppingCart shoppingCartEntity = this.shoppingCartRepository.findById(id)
+                .orElseThrow(() -> new ShoppingCartNotFoundException("Shopping cart with " + id + " not found"));
+
+        return IShoppingCartMapper.mapper.toDto(shoppingCartEntity);
     }
 
     @Override

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface IProductAPI {
 
     @GetMapping("product/read/{code}")
-    public ProductDto getProductByCode(@PathVariable Long code);
+    ProductDto getProductByCode(@PathVariable Long code);
 
 }

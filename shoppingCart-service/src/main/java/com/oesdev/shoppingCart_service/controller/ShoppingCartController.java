@@ -1,18 +1,16 @@
 package com.oesdev.shoppingCart_service.controller;
 
+import com.oesdev.shoppingCart_service.dto.ShoppingCartDto;
 import com.oesdev.shoppingCart_service.service.IShoppingCartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/shoppingcart")
 public class ShoppingCartController {
 
-    private IShoppingCartService shoppingCartService;
+    private final IShoppingCartService shoppingCartService;
 
     public ShoppingCartController(IShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
@@ -26,5 +24,10 @@ public class ShoppingCartController {
     @PostMapping("/add-product/{id}/{code}")
     public ResponseEntity<String> addProductToCart(@PathVariable Long id, @PathVariable Long code) {
         return new ResponseEntity<>(this.shoppingCartService.addProductToCart(id, code), HttpStatus.OK);
+    }
+
+    @GetMapping("/read/{id}")
+    public ResponseEntity<ShoppingCartDto> getShoppingCart(@PathVariable Long id) {
+        return new ResponseEntity<>(this.shoppingCartService.getShoppingCart(id), HttpStatus.OK);
     }
 }

@@ -1,18 +1,15 @@
 package com.oesdev.shoppingCart_service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class ShoppingCartDto {
+public class ErrorDto {
 
-    private Double totalPrice;
-    private List<ProductDto> listProducts;
+    private int status;
+    private String message;
+
 }
