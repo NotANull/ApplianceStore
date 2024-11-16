@@ -43,7 +43,7 @@ public class ProductServiceImp implements IProductService{
     @Override
     public List<ProductDto> getProducts() {
         return this.productRepository.findAll().stream()
-                .map(p -> ProductMapper.mapper.toResponseDto(p))
+                .map(ProductMapper.mapper::toResponseDto)
                 .toList();
     }
 

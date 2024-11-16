@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
 @Builder
+@Entity
 public class Product {
 
     @Id
@@ -21,6 +21,6 @@ public class Product {
     private Long code;
     private String name;
     private String brand;
-    private Double price;
+    private double price;
 
 }
