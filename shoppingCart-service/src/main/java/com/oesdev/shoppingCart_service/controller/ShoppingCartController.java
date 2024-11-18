@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/shoppingcart")
 public class ShoppingCartController {
@@ -29,5 +31,10 @@ public class ShoppingCartController {
     @GetMapping("/read/{id}")
     public ResponseEntity<ShoppingCartDto> getShoppingCart(@PathVariable Long id) {
         return new ResponseEntity<>(this.shoppingCartService.getShoppingCart(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/read/list")
+    public ResponseEntity<List<ShoppingCartDto>> getShoppingCarts() {
+        return new ResponseEntity<>(this.shoppingCartService.getShoppingCarts(), HttpStatus.OK);
     }
 }

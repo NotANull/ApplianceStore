@@ -12,6 +12,8 @@ import com.oesdev.shoppingCart_service.repository.IShoppingCartRepository;
 import feign.FeignException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShoppingCartServiceImp implements IShoppingCartService{
 
@@ -59,8 +61,10 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     }
 
     @Override
-    public ShoppingCartDto getShoppingCarts() {
-        return null;
+    public List<ShoppingCartDto> getShoppingCarts() {
+        return this.shoppingCartRepository.findAll().stream()
+                .map(IShoppingCartMapper.mapper::toDto)
+                .toList();
     }
 
 

@@ -2,6 +2,8 @@ package com.oesdev.shoppingCart_service.service;
 
 import com.oesdev.shoppingCart_service.dto.ShoppingCartDto;
 
+import java.util.List;
+
 public interface IShoppingCartService {
 
     String createShoppingCart();
@@ -10,5 +12,5 @@ public interface IShoppingCartService {
 
     ShoppingCartDto getShoppingCart(Long id);
 
-    ShoppingCartDto getShoppingCarts();
+    List<ShoppingCartDto> getShoppingCarts();
 }
