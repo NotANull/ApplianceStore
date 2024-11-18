@@ -18,7 +18,7 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double totalPrice;
+    private double totalPrice;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> listProducts;
 }

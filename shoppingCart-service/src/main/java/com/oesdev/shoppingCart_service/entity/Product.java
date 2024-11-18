@@ -18,6 +18,6 @@ public class Product {
     private Long code;
     private String name;
     private String brand;
-    private Double price;
+    private double price;
 
 }
