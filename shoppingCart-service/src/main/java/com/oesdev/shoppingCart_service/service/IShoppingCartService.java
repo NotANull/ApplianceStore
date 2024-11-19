@@ -13,4 +13,8 @@ public interface IShoppingCartService {
     ShoppingCartDto getShoppingCart(Long id);
 
     List<ShoppingCartDto> getShoppingCarts();
+
+    String removeProductFromCart(Long id, Long productCode);
+
+    String deleteShoppingCart(Long id);
 }
