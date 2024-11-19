@@ -67,7 +67,7 @@ public class ProductServiceImp implements IProductService{
         Optional<Product> productEntity = this.productRepository.findById(productCode);
 
         if (productEntity.isEmpty()){
-            return "The code with product " + productCode + " does not exist! Please enter another code.";
+            return "Product with code " + productCode + " does not exist!";
         }
 
         this.productRepository.delete(productEntity.get());
