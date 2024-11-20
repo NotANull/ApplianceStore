@@ -20,6 +20,6 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate saleDate;
-    //@OneToOne //Watchout!!
-    //private ShoppingCartDto shoppingCart; //entity or dto? For the moment dto. Practice with entity
+    @Transient
+    private ShoppingCartDto shoppingCart;
 }
