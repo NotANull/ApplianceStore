@@ -20,6 +20,5 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate saleDate;
-    @Transient
-    private ShoppingCartDto shoppingCart;
+    private Long shoppingCartId;
 }
