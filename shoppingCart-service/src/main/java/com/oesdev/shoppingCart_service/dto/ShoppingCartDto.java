@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 public class ShoppingCartDto {
 
+    private Long id;
     private Double totalPrice;
     private List<ProductDto> listProducts;
 }
