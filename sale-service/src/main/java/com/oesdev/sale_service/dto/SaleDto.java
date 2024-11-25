@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +16,7 @@ public class SaleDto {
 
     private Long id;
     private LocalDate saleDate;
-    private Long shoppingCartId;
+    private double totalPrice;
+    private List<ProductDto> productDtoList;
 
 }

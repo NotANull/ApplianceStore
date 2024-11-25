@@ -50,6 +50,12 @@ public class SaleServiceImp implements ISaleService{
 
         ShoppingCartDto shoppingCartFromAPI = this.shoppingCartAPI.getShoppingCart(saleEntity.getShoppingCartId());
 
-        return ISaleMapper.mapper.toDto(saleEntity);
+        return SaleDto.builder()
+                .id(id)
+                .saleDate(saleEntity.getSaleDate())
+                .totalPrice(shoppingCartFromAPI.getTotalPrice())
+                .productDtoList(shoppingCartFromAPI.getListProducts())
+                .build();
+
     }
 }
