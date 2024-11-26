@@ -55,10 +55,8 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     }
 
     public String fallbackGetProduct(Long id, Long productCode, Throwable throwable) {
-        if (throwable instanceof ShoppingCartNotFoundException) {
-            return "Shopping cart with " + id + " not found.";
-        } else if (throwable instanceof FeignException) {
-            return "Product service is currently unavailable. Please try again later.";
+        if (throwable instanceof FeignException.NotFound) {
+            return "Product with code " + productCode + " not found";
         } else {
             return "Could not add product to cart due to unexpected error: " + throwable.getMessage();
         }
