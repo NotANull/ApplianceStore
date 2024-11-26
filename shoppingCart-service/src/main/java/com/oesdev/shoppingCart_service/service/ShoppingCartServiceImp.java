@@ -11,6 +11,7 @@ import com.oesdev.shoppingCart_service.repository.IProductAPI;
 import com.oesdev.shoppingCart_service.repository.IProductRepository;
 import com.oesdev.shoppingCart_service.repository.IShoppingCartRepository;
 import feign.FeignException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,24 +37,33 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     }
 
     @Override
+    @CircuitBreaker(name = "productServiceCircuitBreaker", fallbackMethod = "fallbackGetProduct")
     public String addProductToCart(Long id, Long productCode) {
 
         ShoppingCart shoppingCartEntity = this.shoppingCartRepository.findById(id)
-                .orElseThrow(() -> new ShoppingCartNotFoundException("Shopping cart with " + id + " not found"));
+                .orElseThrow(() -> new ShoppingCartNotFoundException("Shopping cart with " + id + " not found."));
 
-        try {
-            ProductDto productDto = this.productAPI.getProductByCode(productCode);
-            Product productEntity = IShoppingCartMapper.mapper.toEntity(productDto);
-            shoppingCartEntity.getListProducts().add(productEntity);
-            shoppingCartEntity.setTotalPrice(shoppingCartEntity.getTotalPrice() + productEntity.getPrice());
-        } catch (FeignException.InternalServerError | FeignException.NotFound e) {
-            throw new ProductNotFoundException("Product with code " + productCode + " not found");
-        }
+        ProductDto productDto = this.productAPI.getProductByCode(productCode);
+        Product productEntity = IShoppingCartMapper.mapper.toEntity(productDto);
+
+        shoppingCartEntity.getListProducts().add(productEntity);
+        shoppingCartEntity.setTotalPrice(shoppingCartEntity.getTotalPrice() + productEntity.getPrice());
 
         this.shoppingCartRepository.save(shoppingCartEntity);
 
         return "The product is in the cart";
     }
+
+    public String fallbackGetProduct(Long id, Long productCode, Throwable throwable) {
+        if (throwable instanceof ShoppingCartNotFoundException) {
+            return "Shopping cart with " + id + " not found.";
+        } else if (throwable instanceof FeignException) {
+            return "Product service is currently unavailable. Please try again later.";
+        } else {
+            return "Could not add product to cart due to unexpected error: " + throwable.getMessage();
+        }
+    }
+
 
     @Override
     public ShoppingCartDto getShoppingCart(Long id) {
