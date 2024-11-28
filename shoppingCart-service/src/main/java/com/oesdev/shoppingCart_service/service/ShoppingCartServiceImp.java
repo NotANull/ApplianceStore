@@ -80,6 +80,7 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
     }
 
     @Override
+    @CircuitBreaker(name = "productServiceCircuitBreaker", fallbackMethod = "fallbackGetProduct")
     public String removeProductFromCart(Long id, Long productCode) {
 
         ShoppingCart shoppingCartEntity = this.shoppingCartRepository.findById(id)
