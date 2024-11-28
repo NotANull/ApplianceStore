@@ -58,7 +58,7 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
         if (throwable instanceof FeignException.NotFound) {
             return "Product with code " + productCode + " not found";
         } else {
-            return "Could not add product to cart due to unexpected error: " + throwable.getMessage();
+            return "System down, please try again later";
         }
     }
 
