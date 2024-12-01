@@ -8,7 +8,6 @@ import com.oesdev.shoppingCart_service.exception.ProductNotFoundException;
 import com.oesdev.shoppingCart_service.exception.ShoppingCartNotFoundException;
 import com.oesdev.shoppingCart_service.mapper.IShoppingCartMapper;
 import com.oesdev.shoppingCart_service.repository.IProductAPI;
-import com.oesdev.shoppingCart_service.repository.IProductRepository;
 import com.oesdev.shoppingCart_service.repository.IShoppingCartRepository;
 import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -22,12 +21,10 @@ public class ShoppingCartServiceImp implements IShoppingCartService{
 
     private final IProductAPI productAPI;
     private final IShoppingCartRepository shoppingCartRepository;
-    private final IProductRepository productRepository;
 
-    public ShoppingCartServiceImp(IProductAPI productAPI, IShoppingCartRepository shoppingCartRepository, IProductRepository productRepository) {
+    public ShoppingCartServiceImp(IProductAPI productAPI, IShoppingCartRepository shoppingCartRepository) {
         this.productAPI = productAPI;
         this.shoppingCartRepository = shoppingCartRepository;
-        this.productRepository = productRepository;
     }
 
     @Override

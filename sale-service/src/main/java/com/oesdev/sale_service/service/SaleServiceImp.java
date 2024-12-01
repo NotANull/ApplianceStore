@@ -5,7 +5,6 @@ import com.oesdev.sale_service.dto.ShoppingCartDto;
 import com.oesdev.sale_service.entity.Sale;
 import com.oesdev.sale_service.exception.SaleNotFoundException;
 import com.oesdev.sale_service.exception.ShoppingCartNotFoundException;
-import com.oesdev.sale_service.mapper.ISaleMapper;
 import com.oesdev.sale_service.repository.ISaleRepository;
 import com.oesdev.sale_service.repository.IShoppingCartAPI;
 import feign.FeignException;
